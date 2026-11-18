@@ -40,5 +40,5 @@ graph LR
     UC6 -.->|include| UC8
     UC6 -.->|include| UC9
     UC6 -.->|include| UC2
-    UC10 -.->|extend <br/> (Payment fails)| UC7
-    UC11 -.->|extend <br/> (Exceeds value)| UC6
+    UC10 -.->|extend| UC7
+    UC11 -.->|extend| UC6
