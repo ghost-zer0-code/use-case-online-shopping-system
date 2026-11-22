@@ -1,44 +1,41 @@
-# Online Shopping System - Use Case Diagram
+flowchart LR
+    Customer(["Customer"])
+    PaymentGateway(["Payment Gateway"])
+    Administrator(["Administrator"])
 
-```mermaid
-graph LR
-    Customer((Customer))
-    Admin((Administrator))
-    PG[Payment Gateway]
-
-    subgraph System [Online Shopping System]
-        UC1[Create Account]
-        UC2[Log In]
-        UC3[Browse Products]
-        UC4[Search Products]
-        UC5[Add to Shopping Cart]
-        UC6[Place Order]
-        UC7[Pay for Order]
-        UC8[Check Product Availability]
-        UC9[Calculate Total Price]
-        UC10[Retry Payment]
-        UC11[Verify Fraud]
-        UC12[Manage Product Info]
-        UC13[Update Prices]
-        UC14[Manage Customer Accounts]
+    subgraph OnlineShoppingSystem["Online Shopping System"]
+        CreateAccount(["Create Account"])
+        LogIn(["Log In"])
+        BrowseProducts(["Browse Products"])
+        SearchProducts(["Search Products"])
+        AddToCart(["Add Products to Shopping Cart"])
+        PlaceOrder(["Place Order"])
+        CheckAvailability(["Check Product Availability"])
+        CalculateTotal(["Calculate Total Order Price"])
+        FraudVerification(["Perform Fraud Verification"])
+        PayForOrder(["Pay for Order"])
+        RetryPayment(["Retry Payment"])
+        ManageProductInfo(["Manage Product Information"])
+        UpdatePrices(["Update Prices"])
+        ManageCustomerAccounts(["Manage Customer Accounts"])
     end
 
-    Customer --> UC1
-    Customer --> UC2
-    Customer --> UC3
-    Customer --> UC4
-    Customer --> UC5
-    Customer --> UC6
-    Customer --> UC7
+    Customer --- CreateAccount
+    Customer --- LogIn
+    Customer --- BrowseProducts
+    Customer --- SearchProducts
+    Customer --- AddToCart
+    Customer --- PlaceOrder
+    Customer --- PayForOrder
 
-    UC7 --> PG
+    PaymentGateway --- PayForOrder
 
-    Admin --> UC12
-    Admin --> UC13
-    Admin --> UC14
+    Administrator --- ManageProductInfo
+    Administrator --- UpdatePrices
+    Administrator --- ManageCustomerAccounts
 
-    UC6 -.->|include| UC8
-    UC6 -.->|include| UC9
-    UC6 -.->|include| UC2
-    UC10 -.->|extend| UC7
-    UC11 -.->|extend| UC6
+    PlaceOrder -.->|"&laquo;include&raquo;"| CheckAvailability
+    PlaceOrder -.->|"&laquo;include&raquo;"| CalculateTotal
+
+    FraudVerification -.->|"&laquo;extend&raquo;: order exceeds specified value"| PlaceOrder
+    RetryPayment -.->|"&laquo;extend&raquo;: payment fails"| PayForOrder
