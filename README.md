@@ -3,7 +3,7 @@ flowchart LR
     PaymentGateway(["Payment Gateway"])
     Administrator(["Administrator"])
 
-    subgraph OnlineShoppingSystem["Online Shopping System"]
+    subgraph Online Shopping System
         CreateAccount(["Create Account"])
         LogIn(["Log In"])
         BrowseProducts(["Browse Products"])
@@ -11,13 +11,13 @@ flowchart LR
         AddToCart(["Add Products to Shopping Cart"])
         PlaceOrder(["Place Order"])
         CheckAvailability(["Check Product Availability"])
-        CalculateTotal(["Calculate Total Order Price"])
-        FraudVerification(["Perform Fraud Verification"])
+        CalculatePrice(["Calculate Total Order Price"])
+        FraudCheck(["Perform Fraud Verification"])
         PayForOrder(["Pay for Order"])
         RetryPayment(["Retry Payment"])
-        ManageProductInfo(["Manage Product Information"])
+        ManageProducts(["Manage Product Information"])
         UpdatePrices(["Update Prices"])
-        ManageCustomerAccounts(["Manage Customer Accounts"])
+        ManageCustomers(["Manage Customer Accounts"])
     end
 
     Customer --- CreateAccount
@@ -30,12 +30,12 @@ flowchart LR
 
     PaymentGateway --- PayForOrder
 
-    Administrator --- ManageProductInfo
+    Administrator --- ManageProducts
     Administrator --- UpdatePrices
-    Administrator --- ManageCustomerAccounts
+    Administrator --- ManageCustomers
 
     PlaceOrder -.->|"&laquo;include&raquo;"| CheckAvailability
-    PlaceOrder -.->|"&laquo;include&raquo;"| CalculateTotal
+    PlaceOrder -.->|"&laquo;include&raquo;"| CalculatePrice
 
-    FraudVerification -.->|"&laquo;extend&raquo;: order exceeds specified value"| PlaceOrder
+    FraudCheck -.->|"&laquo;extend&raquo;: order exceeds specified value"| PlaceOrder
     RetryPayment -.->|"&laquo;extend&raquo;: payment fails"| PayForOrder
